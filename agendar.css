@@ -1,0 +1,168 @@
+/* =======================================================
+   ESTILO UNIFICADO — AGENDAR CITA
+======================================================= */
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #0f0f0f;
+  color: #fff;
+  line-height: 1.6;
+  padding-top: 90px;
+}
+
+/* ----------------- HEADER ----------------- */
+
+.header{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:72px;
+  background:rgba(10,10,10,0.92);
+  backdrop-filter:blur(6px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 36px;
+  z-index:1500;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+/* LOGO REDONDO PREMIUM */
+.logo img{
+  height:70px;
+  width:70px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#fff;
+  padding:4px;
+  border:2px solid #ff6e33;
+}
+
+/* MENU */
+.nav{
+  display:flex;
+  align-items:center;
+  gap:26px;   /* <-- Esto faltaba y POR ESO NO SE VEÍA TU MENÚ */
+}
+
+.nav a{
+  font-weight:600;
+  color:#e7e7e7;
+  font-size:16px;
+  transition:0.18s ease;
+}
+
+.nav a:hover,
+.nav a.active{
+  color:#ff6e33;
+  transform:translateY(-2px);
+}
+
+/* ----------------- FORMULARIO ----------------- */
+
+.agendar {
+  padding: 40px 20px;
+  max-width: 560px;
+  margin: auto;
+  text-align: center;
+}
+
+.agendar h2 {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.agendar p {
+  color: #ccc;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+/* Labels */
+label {
+  display: block;
+  text-align: left;
+  margin: 18px 0 6px;
+  color: #ff6e33;
+  font-weight: 700;
+}
+
+/* Inputs / Selects */
+input, select {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  background: #1b1b1b;
+  border: 1px solid #2d2d2d;
+  color: #fff;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: #ff6e33;
+  box-shadow: 0 0 12px rgba(255,110,51,0.25);
+}
+
+/* Botón estilo premium */
+.btn {
+  width: 100%;
+  margin-top: 28px;
+  padding: 14px;
+  background: #ff6e33;
+  color: #fff;
+  font-weight: 800;
+  font-size: 17px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn:hover {
+  background: #d45720;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255,110,51,0.3);
+}
+
+/* Botón cargando */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Mensajes */
+.error {
+  margin-top: 4px;
+  color: #ff4c4c;
+  font-size: 14px;
+  text-align: left;
+}
+
+.success {
+  color: #25d366;
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header {
+    padding: 0 20px;
+    height: 68px;
+  }
+
+  .logo img {
+    height: 58px;
+    width: 58px;
+  }
+
+  .agendar h2 {
+    font-size: 32px;
+  }
+
+  .btn {
+    font-size: 15px;
+  }
+}

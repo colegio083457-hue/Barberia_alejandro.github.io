@@ -1,0 +1,258 @@
+/* =======================================
+      RESET / BASE
+======================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #000;
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* =======================================
+      HEADER / MENÚ PREMIUM
+======================================= */
+
+.header{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:72px;
+  background:rgba(10,10,10,0.92);
+  backdrop-filter:blur(6px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 36px;
+  z-index:1500;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+/* LOGO REDONDO PREMIUM */
+.logo img{
+  height:70px;
+  width:70px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#fff;
+  padding:4px;
+  border:2px solid #ff6e33;
+}
+
+/* MENU */
+.nav{
+  display:flex;
+  align-items:center;
+  gap:26px;   /* <-- Esto faltaba y POR ESO NO SE VEÍA TU MENÚ */
+}
+
+.nav a{
+  font-weight:600;
+  color:#e7e7e7;
+  font-size:16px;
+  transition:0.18s ease;
+}
+
+.nav a:hover,
+.nav a.active{
+  color:#ff6e33;
+  transform:translateY(-2px);
+}
+
+.nav a:hover::after,
+.nav .active::after {
+  width: 100%;
+}
+
+.spacer {
+  height: 40px;
+}
+
+/* =======================================
+      HERO (INICIO)
+======================================= */
+
+.hero {
+  height: 90vh;
+  background: url("https://images.unsplash.com/photo-1599351431202-05ccef9f1bc0?auto=format&fit=crop&w=1200&q=80")
+    center/cover no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  margin-left: 80px;
+  max-width: 550px;
+}
+
+.hero h1 {
+  font-size: 70px;
+  font-weight: 800;
+}
+
+.hero p {
+  font-size: 20px;
+  margin: 15px 0 30px;
+}
+
+/* Botón general */
+.btn {
+  display: inline-block;
+  background: #ff6e33;
+  color: #000;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #d45c2b;
+}
+
+/* =======================================
+      SERVICIOS
+======================================= */
+
+.servicios {
+  padding: 60px;
+  text-align: center;
+}
+
+.servicios h2 {
+  font-size: 35px;
+  color: #ff6e33;
+  margin-bottom: 10px;
+}
+
+.servicios-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.servicio-card {
+  background: #1b1b1b;
+  padding: 25px;
+  border-radius: 12px;
+  transition: 0.3s;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+}
+
+.servicio-card:hover {
+  background: #222;
+  transform: translateY(-4px);
+}
+
+/* =======================================
+      AGENDA (FORMULARIO)
+======================================= */
+
+.agendar {
+  padding: 60px;
+  text-align: center;
+}
+
+.agendar h2 {
+  color: #ff6e33;
+  font-size: 35px;
+}
+
+form {
+  margin-top: 30px;
+  max-width: 450px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+select {
+  padding: 12px;
+  margin: 10px 0;
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 10px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus,
+select:focus {
+  border-color: #ff6e33;
+}
+
+/* =======================================
+      CONTACTO
+======================================= */
+
+.contact-container {
+  max-width: 550px;
+  margin: 40px auto;
+  background: #111;
+  padding: 45px 25px;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+  text-align: center;
+}
+
+.contact-container h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ff6e33;
+  margin-bottom: 12px;
+}
+
+.contact-sub {
+  font-size: 16px;
+  color: #cfcfcf;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.contact-btn {
+  padding: 14px 28px;
+  font-size: 1.1em;
+}
+
+/* =======================================
+      RESPONSIVE GENERAL
+======================================= */
+
+@media (max-width: 850px) {
+  .hero h1 { font-size: 48px; }
+  .hero-content { margin-left: 40px; }
+}
+
+@media (max-width: 650px) {
+  .header { padding: 15px 25px; }
+
+  .nav { gap: 18px; }
+
+  .nav a { font-size: 14px; }
+
+  .header .logo img {
+    width: 55px;
+    height: 55px;
+  }
+
+  .servicios-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    height: 65vh;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+}

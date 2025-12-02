@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Citas — Alejandro Barber</title>
+
+  <link rel="stylesheet" href="panel.css">
+
+  <style>
+    /* Botón aprobar */
+    .approveBtn {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 7px 12px;
+      border-radius: 6px;
+      margin-top: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      width: 130px;
+    }
+
+    /* Botón no aprobar */
+    .rejectBtn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 7px 12px;
+      border-radius: 6px;
+      margin-left: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      width: 130px;
+      margin-top: 8px;
+    }
+
+    /* Cita aprobada */
+    .aprobada {
+      border: 2px solid #28a745 !important;
+      background: rgba(40, 167, 69, 0.15);
+    }
+
+    /* Cita NO aprobada */
+    .noAprobada {
+      border: 2px solid #dc3545 !important;
+      background: rgba(220, 53, 69, 0.15);
+    }
+
+    .estado {
+      margin-top: 6px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">
+    <img src="ChatGPT Image 26 nov 2025, 19_41_26.png" alt="Logo">
+  </div>
+
+  <nav class="nav">
+    <a href="INICIO.HTML">Inicio</a>
+    <a href="SERVICIOS.HTML">Servicios</a>
+    <a href="AGENDAR.HTML">Agendar</a>
+    <a href="CONTACTO.HTML" class="active">Contacto</a>
+    <a href="PANEL.HTML">Citas</a>
+  </nav>
+</header>
+
+<div class="spacer"></div>
+
+<section class="panel-container">
+  <h2 class="titulo">Panel de Citas</h2>
+
+  <div class="panel-buttons">
+    <button class="btn" onclick="verCitas()">📋 Ver Citas</button>
+    <button class="btn secondary" onclick="mostrarLogin()">🔑 Entrar como Admin</button>
+  </div>
+
+  <div id="loginAdmin" class="login-box" style="display:none;">
+    <input type="password" id="passAdmin" placeholder="Contraseña de administrador">
+    <button class="btn" onclick="loginAdmin()">Entrar</button>
+    <p id="errorPass" class="error"></p>
+  </div>
+
+  <div id="listaCitas" class="lista"></div>
+
+  <p class="no-citas" id="noCitas" style="display:none;">No hay citas registradas.</p>
+</section>
+
+<script>
+const PASS_ADMIN = "1";
+let modoAdmin = false;
+
+function fechaSinDesfase(f) {
+  const [a, m, d] = f.split("-").map(Number);
+  return new Date(a, m - 1, d);
+}
+
+function formatearHora(h24) {
+  const [h, m] = h24.split(":");
+  let hora = parseInt(h);
+  const ampm = hora >= 12 ? "PM" : "AM";
+  hora = hora % 12 || 12;
+  return `${hora}:${m} ${ampm}`;
+}
+
+function mostrarLogin() {
+  document.getElementById("loginAdmin").style.display = "block";
+}
+
+function loginAdmin() {
+  const input = document.getElementById("passAdmin");
+  const error = document.getElementById("errorPass");
+
+  if (input.value === PASS_ADMIN) {
+    modoAdmin = true;
+    error.textContent = "";
+    alert("Acceso concedido ✔");
+    verCitas();
+  } else {
+    error.textContent = "Contraseña incorrecta.";
+  }
+}
+
+function verCitas() {
+  const cont = document.getElementById("listaCitas");
+  const msg = document.getElementById("noCitas");
+
+  cont.innerHTML = "";
+  msg.style.display = "none";
+
+  let citas = JSON.parse(localStorage.getItem("citasVaultBarber") || "[]");
+
+  if (citas.length === 0) {
+    msg.style.display = "block";
+    return;
+  }
+
+  citas.forEach((c, index) => {
+    const fechaBonita = fechaSinDesfase(c.fecha).toLocaleDateString("es-DO", {
+      weekday: "long",
+      day: "numeric",
+      month: "long"
+    });
+
+    const div = document.createElement("div");
+    div.className = "cita";
+
+    // Estilos según estado
+    if (c.estado === "aprobada") div.classList.add("aprobada");
+    if (c.estado === "no_aprobada") div.classList.add("noAprobada");
+
+    div.innerHTML = `
+      <strong>${c.nombre}</strong><br>
+      📅 ${fechaBonita}<br>
+      🕒 ${formatearHora(c.hora)}<br>
+      ✂️ ${c.servicio}<br>
+      <p class="estado">${
+        c.estado === "aprobada"
+          ? "✔ Aprobada"
+          : c.estado === "no_aprobada"
+          ? "✘ No aprobada"
+          : "Pendiente"
+      }</p>
+    `;
+
+    if (modoAdmin) {
+      // Botón aprobar
+      const approve = document.createElement("button");
+      approve.className = "approveBtn";
+      approve.textContent = "Aprobar";
+      approve.onclick = () => aprobarCita(index);
+
+      // Botón no aprobar
+      const reject = document.createElement("button");
+      reject.className = "rejectBtn";
+      reject.textContent = "No aprobar";
+      reject.onclick = () => noAprobarCita(index);
+
+      div.appendChild(approve);
+      div.appendChild(reject);
+
+      // Botón eliminar
+      const del = document.createElement("button");
+      del.className = "delBtn";
+      del.textContent = "Eliminar Cita";
+      del.onclick = () => eliminarCita(index);
+      div.appendChild(del);
+    }
+
+    cont.appendChild(div);
+  });
+}
+
+function aprobarCita(i) {
+  let citas = JSON.parse(localStorage.getItem("citasVaultBarber") || "[]");
+
+  citas[i].estado = "aprobada";
+
+  localStorage.setItem("citasVaultBarber", JSON.stringify(citas));
+
+  verCitas();
+}
+
+function noAprobarCita(i) {
+  let citas = JSON.parse(localStorage.getItem("citasVaultBarber") || "[]");
+
+  citas[i].estado = "no_aprobada";
+
+  localStorage.setItem("citasVaultBarber", JSON.stringify(citas));
+
+  verCitas();
+}
+
+function eliminarCita(i) {
+  if (!confirm("¿Seguro que deseas eliminar esta cita?")) return;
+
+  let citas = JSON.parse(localStorage.getItem("citasVaultBarber") || "[]");
+
+  citas.splice(i, 1);
+
+  localStorage.setItem("citasVaultBarber", JSON.stringify(citas));
+
+  verCitas();
+}
+</script>
+
+</body>
+</html>

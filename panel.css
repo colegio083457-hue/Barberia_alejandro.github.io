@@ -1,0 +1,160 @@
+/* =========================
+   ESTILO GLOBAL
+========================= */
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  background: #000;
+  color: white;
+}
+
+/* =========================
+      HEADER
+========================= */
+.header{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:72px;
+  background:rgba(10,10,10,0.92);
+  backdrop-filter:blur(6px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 36px;
+  z-index:1500;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+/* LOGO REDONDO PREMIUM */
+.logo img{
+  height:70px;
+  width:70px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#fff;
+  padding:4px;
+  border:2px solid #ff6e33;
+}
+
+/* MENU */
+.nav{
+  display:flex;
+  align-items:center;
+  gap:26px;   /* <-- Esto faltaba y POR ESO NO SE VEÍA TU MENÚ */
+}
+
+.nav a{
+  font-weight:600;
+  color:#e7e7e7;
+  font-size:16px;
+  transition:0.18s ease;
+}
+
+.nav a:hover,
+.nav a.active{
+  color:#ff6e33;
+  transform:translateY(-2px);
+}
+
+.spacer {
+  height: 100px;
+}
+
+/* =========================
+      PANEL CONTENEDOR
+========================= */
+.panel-container {
+  max-width: 550px;
+  margin: auto;
+  padding: 25px;
+  background: #111;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+}
+
+/* TÍTULO */
+.titulo {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: #ff6e33;
+}
+
+/* BOTONES */
+.btn {
+  width: 100%;
+  padding: 13px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #ff6e33;
+  font-size: 1.1em;
+  cursor: pointer;
+  color: #000;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #d45c2b;
+}
+
+.btn.secondary {
+  background: #333;
+  color: #fff;
+}
+
+.btn.secondary:hover {
+  background: #444;
+}
+
+/* LOGIN */
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background: #1b1b1b;
+  color: white;
+}
+
+.error {
+  margin-top: 5px;
+  color: #ff4444;
+}
+
+/* LISTA DE CITAS */
+.cita {
+  background: #1b1b1b;
+  border-left: 4px solid #ff6e33;
+  padding: 18px;
+  border-radius: 12px;
+  margin-top: 15px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* BOTÓN ELIMINAR */
+.delBtn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  background: #d32f2f;
+  color: white;
+  cursor: pointer;
+}
+
+.delBtn:hover {
+  background: #b71c1c;
+}
+
+/* NO CITAS */
+.no-citas {
+  margin-top: 20px;
+  text-align: center;
+  color: #888;
+}
